@@ -47,7 +47,6 @@ import com.google.api.services.vision.v1.model.AnnotateImageRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
 import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
-import com.google.api.services.vision.v1.model.FaceAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
 
@@ -61,13 +60,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import dev.jbcu10.imageanalyzer.R;
 import dev.jbcu10.imageanalyzer.activity.HomeActivity;
 import dev.jbcu10.imageanalyzer.adapter.AnalysisAdapter;
 import dev.jbcu10.imageanalyzer.model.Analysis;
-import dev.jbcu10.imageanalyzer.model.Food;
 import dev.jbcu10.imageanalyzer.utils.FoodMapper;
 import dev.jbcu10.imageanalyzer.utils.PackageManagerUtils;
 import dev.jbcu10.imageanalyzer.utils.PermissionUtils;
@@ -109,19 +106,18 @@ public class CameraFragment    extends ListFragment implements AbsListView.OnScr
     public CameraFragment() {
         // Required empty public constructor
     }
-    private AdView mAdView;
+
     private void loadAds(){
-        MobileAds.initialize(getActivity(), getResources().getString(R.string.interstitial_ad_unit_id));
-        AdView adView = new AdView(getActivity());
-        adView.setAdSize(AdSize.BANNER);
+        try {
+            //tMobileAds.initialize(getActivity(), getResources().getString(R.string.interstitial_ad_unit_id));
+            AdView adView = rootView.findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+        }catch (Exception e){
+            Log.e("error",e.getMessage());
+            Toast.makeText(getActivity(),"error"+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
 
-        Log.d("ads id ", getResources().getString(R.string.interstitial_ad_unit_id));
-        adView.setAdUnitId(  getResources().getString(R.string.interstitial_ad_unit_id));
-
-        mAdView = rootView.findViewById(R.id.adView);
-        //   AdRequest adRequest = new AdRequest.Builder().addTestDevice("6CAB464F621D12E6CDECD2CBDFAC92B1").build();
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
     private void init(){
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
@@ -510,23 +506,23 @@ public class CameraFragment    extends ListFragment implements AbsListView.OnScr
         List<EntityAnnotation> labels = response.getResponses().get(0).getLabelAnnotations();
         if (labels != null) {
             for (EntityAnnotation label : labels) {
-                if(!compareResult(label.getDescription())) {
+
 
 
                     analyses.add(new Analysis( String.valueOf( label.getScore()),label.getDescription()));
 
-                }
+
             }
         }
         return analyses;
     }
 
-    private boolean compareResult(String label){
+    /*private boolean compareResult(String label){
         if(label.contains("food")){
             isFood=true;
         }
         return label.contains("food")||label.contains("fruit")||label.contains("mc")||label.contains("prod");
-    }
+    }*/
 
     @Override
     public void onScrollStateChanged(AbsListView absListView, int i) {
