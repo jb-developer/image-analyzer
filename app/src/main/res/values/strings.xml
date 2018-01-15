@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">ImageAnalyzer</string>
+    <string name="app_name">Image Analyzer</string>
+    <string name="title_activity_home">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="image_details_header">Details:</string>
+    <string name="image_preview_header">Preview:</string>
+    <string name="loading_message">Uploading image. Please wait.</string>
+    <string name="dialog_select_prompt">Choose a picture</string>
+    <string name="dialog_select_camera">Camera</string>
+    <string name="dialog_select_gallery">Gallery</string>
+
+    <string name="image_picker_error">Something is wrong with that image. Pick a different one please.</string>
+    <string name="title_activity_ad_mob">AdMobActivity</string>
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-2063494299935345~7206451113</string>
 </resources>
